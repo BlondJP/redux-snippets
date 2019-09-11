@@ -1,4 +1,5 @@
-import { ADD_TODO } from "../constants/action-types";
+import { ADD_TODO, DELETE_TODO } from "../constants/action-types";
+import { removeTodo, addTodo } from "./todos";
 
 const initialState = {
   todos: []
@@ -7,13 +8,9 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      const newState = {
-        todos: state.todos.concat({
-          content: action.payload.content,
-          id: action.payload.id
-        })
-      };
-      return Object.assign({}, state, newState);
+      return addTodo(state, action);
+    case DELETE_TODO:
+      return removeTodo(state, action);
     default:
       console.log("unknown action");
   }
